@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy: Portal Halaman Web</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #161b22;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #30363d;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 420px;
+            width: 90%;
+        }
+        
+        .content-box {
+            background-color: #161b22;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+            display: none;
+            border: 1px solid #30363d;
+        }
+        
+        .content-box.active {
+            opacity: 1;
+            display: block;
+        }
+        
+        h1 {
+            color: #5a57ff;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            color: #8b949e;
+        }
+        
+        h2 {
+            color: #fff;
+            margin-top: 0;
+        }
+        
+        input {
+            width: calc(100% - 22px);
+            padding: 11px;
+            margin-bottom: 15px;
+            border: 1px solid #30363d;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background-color: #238636;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2ea043;
+        }
+        
+        .google-button {
+            background-color: #4285f4;
+        }
+        
+        .google-button:hover {
+            background-color: #357ae8;
+        }
+        
+        .or-separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .or-separator::before,
+        .or-separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #30363d;
+        }
+        
+        .or-separator:not(:empty)::before {
+            margin-right: .5em;
+        }
+        
+        .or-separator:not(:empty)::after {
+            margin-left: .5em;
+        }
+        
+        .switch-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .switch-link span {
+            color: #5a57ff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        
+        .error-text {
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+        
+        #logout-button {
+            width: auto;
+            background-color: #e74c3c;
+            margin-top: 10px;
+        }
+        #logout-button:hover {
+            background-color: #c0392b;
+        }
+        
+        #user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        hr {
+            border: 0;
+            height: 1px;
+            background: #30363d;
+            margin: 20px 0;
+        }
+        
+        .project-item {
+            background-color: #0d1117;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        
+        .project-item h4 {
+            margin: 0 0 5px;
+            color: #fff;
+        }
+        
+        .project-item a {
+            color: #5a57ff;
+            word-break: break-all;
+        }
+        
+        .project-item p {
+            margin: 0;
+        }
+        
+        footer {
+            background-color: #161b22;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #30363d;
+            font-size: 0.9rem;
+            color: #8b949e;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Galaxy 🪐</div>
+    </header>
+
+    <main class="container">
+        <div id="homepage" class="content-box active">
+            <h1>Selamat Datang di Galaxy 🌌</h1>
+            <p>Buat dan kelola halaman web unikmu sendiri dengan mudah.</p>
+            <button id="get-started-button">Mulai</button>
+        </div>
+
+        <div id="auth-container" class="content-box">
+            <h2 id="auth-title">Masuk ke Akunmu</h2>
+            <form id="auth-form">
+                <input type="email" id="email-input" placeholder="Email" required>
+                <input type="password" id="password-input" placeholder="Password" required>
+                <button type="submit" id="auth-button">Masuk</button>
+            </form>
+            <div class="or-separator"><span>Atau</span></div>
+            <button id="google-auth-button" class="google-button">Masuk dengan Google</button>
+            <div class="switch-link">
+                Belum punya akun? <span id="switch-mode">Daftar sekarang</span>
+            </div>
+            <div id="error-message" class="error-text"></div>
+        </div>
+
+        <div id="dashboard-container" class="content-box">
+            <div id="user-info">
+                <h3>Dashboard</h3>
+                <p>Halo, <span id="user-email"></span>!</p>
+                <button id="logout-button">Keluar</button>
+            </div>
+            <hr>
+            <h3>Halamanku</h3>
+            <div id="project-list">
+                </div>
+            <button id="create-project-button">Buat Halaman Baru</button>
+        </div>
+    </main>
+
+    <footer>
+        Dibuat oleh Amak bersama Gemini.
+    </footer>
+
+    <script type="module">
+        // Import fungsi Firebase yang dibutuhkan
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getDatabase, ref, set, push, onValue, off } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        // Konfigurasi Firebase-mu (sudah kamu kirim)
+        const firebaseConfig = {
+          apiKey: "AIzaSyAcFRkbZT3PD3BDObS-7T1769uH5Macvd0",
+          authDomain: "reystore-support.firebaseapp.com",
+          databaseURL: "https://reystore-support-default-rtdb.firebaseio.com",
+          projectId: "reystore-support",
+          storageBucket: "reystore-support.firebasestorage.app",
+          messagingSenderId: "446513200960",
+          appId: "1:446513200960:web:cbd40ca4315a8bf47044a5"
+        };
+
+        // Inisialisasi Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        // Ambil elemen HTML
+        const homepage = document.getElementById('homepage');
+        const authContainer = document.getElementById('auth-container');
+        const dashboardContainer = document.getElementById('dashboard-container');
+        const authForm = document.getElementById('auth-form');
+        const emailInput = document.getElementById('email-input');
+        const passwordInput = document.getElementById('password-input');
+        const authButton = document.getElementById('auth-button');
+        const googleAuthButton = document.getElementById('google-auth-button');
+        const authTitle = document.getElementById('auth-title');
+        const switchModeLink = document.getElementById('switch-mode');
+        const errorMessage = document.getElementById('error-message');
+        const getStartedButton = document.getElementById('get-started-button');
+        const logoutButton = document.getElementById('logout-button');
+        const userEmail = document.getElementById('user-email');
+        const projectList = document.getElementById('project-list');
+        const createProjectButton = document.getElementById('create-project-button');
+
+        // Variabel untuk melacak mode (login/daftar)
+        let isLoginMode = true;
+
+        // --- SISTEM AUTENTIKASI ---
+        // Mengubah tampilan berdasarkan status login
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            // Pengguna sudah login, tampilkan dashboard
+            switchView(dashboardContainer);
+            displayDashboard(user);
+          } else {
+            // Pengguna belum login, tampilkan halaman utama
+            switchView(homepage);
+          }
+        });
+
+        // Mengatur tampilan halaman
+        function switchView(activeView) {
+          const views = [homepage, authContainer, dashboardContainer];
+          views.forEach(view => {
+            if (view === activeView) {
+              view.classList.add('active');
+            } else {
+              view.classList.remove('active');
+            }
+          });
+        }
+
+        // Tombol "Mulai Sekarang" di halaman utama
+        getStartedButton.addEventListener('click', () => {
+          switchView(authContainer);
+        });
+
+        // Mengganti antara mode login dan daftar
+        switchModeLink.addEventListener('click', () => {
+          isLoginMode = !isLoginMode;
+          if (isLoginMode) {
+            authButton.textContent = "Masuk";
+            authTitle.textContent = "Masuk ke Akunmu";
+            switchModeLink.textContent = "Daftar sekarang";
+          } else {
+            authButton.textContent = "Daftar";
+            authTitle.textContent = "Daftar Akun Baru";
+            switchModeLink.textContent = "Masuk sekarang";
+          }
+          errorMessage.textContent = "";
+        });
+
+        // Menangani proses login dan daftar
+        authForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = emailInput.value;
+          const password = passwordInput.value;
+
+          if (isLoginMode) {
+            signInWithEmailAndPassword(auth, email, password)
+              .catch((error) => {
+                errorMessage.textContent = `Gagal masuk: ${error.message}`;
+              });
+          } else {
+            createUserWithEmailAndPassword(auth, email, password)
+              .catch((error) => {
+                errorMessage.textContent = `Gagal daftar: ${error.message}`;
+              });
+          }
+        });
+
+        // Menangani login dengan Google
+        googleAuthButton.addEventListener('click', () => {
+            signInWithPopup(auth, googleProvider)
+                .catch((error) => {
+                    errorMessage.textContent = `Gagal masuk dengan Google: ${error.message}`;
+                });
+        });
+
+        // Tombol keluar
+        logoutButton.addEventListener('click', () => {
+          signOut(auth);
+        });
+
+        // --- SISTEM KELOLA HALAMAN ---
+        // Menampilkan dashboard pengguna
+        function displayDashboard(user) {
+          userEmail.textContent = user.email;
+          const userProjectsRef = ref(db, `users/${user.uid}/projects`);
+
+          // Mendengarkan data secara real-time
+          onValue(userProjectsRef, (snapshot) => {
+            projectList.innerHTML = ''; // Hapus daftar lama
+            const data = snapshot.val();
+            if (data) {
+              Object.keys(data).forEach(key => {
+                const project = data[key];
+                const projectItem = document.createElement('div');
+                projectItem.className = 'project-item';
+                projectItem.innerHTML = `
+                  <h4>${project.title}</h4>
+                  <p>URL: <a href="https://yourdomain.com/${user.uid}/${project.urlSlug}" target="_blank">/${project.urlSlug}</a></p>
+                  <p>Isi: ${project.content}</p>
+                `;
+                projectList.appendChild(projectItem);
+              });
+            } else {
+              projectList.innerHTML = '<p>Kamu belum punya halaman. Silakan buat yang baru!</p>';
+            }
+          });
+        }
+
+        // Tombol untuk membuat halaman baru
+        createProjectButton.addEventListener('click', async () => {
+          const user = auth.currentUser;
+          if (!user) {
+            alert("Silakan masuk untuk membuat halaman.");
+            return;
+          }
+          
+          const title = prompt("Masukkan Judul Halaman:");
+          const urlSlug = prompt("Masukkan Nama URL (contoh: 'kura-kura-ku'):");
+          const content = prompt("Masukkan isi konten halaman:");
+
+          if (title && urlSlug && content) {
+            const newProjectRef = ref(db, `users/${user.uid}/projects/${urlSlug}`);
+            await set(newProjectRef, {
+              title: title,
+              urlSlug: urlSlug,
+              content: content,
+              createdAt: Date.now()
+            }).then(() => {
+              alert("Halaman berhasil dibuat!");
+            }).catch(error => {
+              alert("Gagal membuat halaman: " + error.message);
+            });
+          }
+        });
+    </script>
+</body>
+</html>
