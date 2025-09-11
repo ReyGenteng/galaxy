@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LuxeDesign - Modern & Elegant Website Template</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(249, 250, 251, 0.8) 0%, rgba(255, 255, 255, 0.9) 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .image-hover {
+            transition: transform 0.7s ease;
+        }
+        .image-hover:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-white">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-gradient">LuxeDesign</div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors font-medium">Home</a>
+                <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors font-medium">Fitur</a>
+                <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors font-medium">Portfolio</a>
+                <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors font-medium">Harga</a>
+                <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors font-medium">Kontak</a>
+            </nav>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md hidden md:block transition-colors">
+                Mulai Sekarang
+            </button>
+            <button class="border border-gray-300 px-4 py-2 rounded-md md:hidden">Menu</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 lg:py-32">
+        <div class="absolute inset-0 hero-gradient"></div>
+        <div class="container relative mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                    Membuat Pengalaman Digital dengan
+                    <span class="text-gradient"> Elegansi</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Kami menciptakan website dan solusi digital yang memukau yang memadukan desain modern dengan fungsionalitas luar biasa untuk mengangkat brand Anda.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-md">
+                        Mulai Proyek Anda
+                    </button>
+                    <button class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 text-lg rounded-md">
+                        Lihat Karya Kami
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Mengapa Memilih Kami</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                    Kami menggabungkan desain inovatif dengan teknologi terkini untuk memberikan hasil yang luar biasa.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="border-0 rounded-xl shadow-lg hover:shadow-xl card-hover p-6 bg-white">
+                    <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                        <img src="https://placehold.co/48x48" alt="Ikon desain modern yang mewakili estetika kontemporer yang elegan" class="w-8 h-8" />
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Desain Modern</h3>
+                    <p class="text-gray-500 mb-3">Estetika bersih dan kontemporer</p>
+                    <p class="text-gray-600">
+                        Desain kami memadukan minimalisme dengan kecanggihan, menciptakan antarmuka yang memukau secara visual untuk memikat audiens Anda.
+                    </p>
+                </div>
+                <div class="border-0 rounded-xl shadow-lg hover:shadow-xl card-hover p-6 bg-white">
+                    <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                        <img src="https://placehold.co/48x48" alt="Ikon layout responsif yang mewakili desain ramah mobile" class="w-8 h-8" />
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Responsif Penuh</h3>
+                    <p class="text-gray-500 mb-3">Sempurna di semua perangkat</p>
+                    <p class="text-gray-600">
+                        Setiap website yang kami buat dioptimalkan untuk memberikan pengalaman luar biasa di semua perangkat dan ukuran layar.
+                    </p>
+                </div>
+                <div class="border-0 rounded-xl shadow-lg hover:shadow-xl card-hover p-6 bg-white">
+                    <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                        <img src="https://placehold.co/48x48" alt="Ikon pengukur performa yang mewakili kecepatan loading cepat" class="w-8 h-8" />
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Super Cepat</h3>
+                    <p class="text-gray-500 mb-3">Performanya teroptimasi</p>
+                    <p class="text-gray-600">
+                        Kami prioritaskan optimasi performa agar website Anda cepat dimuat dan memberikan pengalaman pengguna yang mulus.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Showcase -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Karya Kami</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                    Jelajahi portofolio kami yang berisi website dan solusi digital yang dirancang dengan indah.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500">
+                    <div class="aspect-video overflow-hidden">
+                        <img src="https://placehold.co/600x400" alt="Desain website korporat modern dengan tata letak bersih dan estetika profesional" class="w-full h-full object-cover image-hover" />
+                    </div>
+                    <div class="p-6 bg-white">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Website Korporat</h3>
+                        <p class="text-gray-600">Desain elegan untuk perusahaan jasa keuangan</p>
+                    </div>
+                </div>
+                <div class="group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500">
+                    <div class="aspect-video overflow-hidden">
+                        <img src="https://placehold.co/600x400" alt="Platform e-commerce dengan tampilan produk intuitif dan fitur belanja" class="w-full h-full object-cover image-hover" />
+                    </div>
+                    <div class="p-6 bg-white">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Toko Online</h3>
+                        <p class="text-gray-600">Pengalaman belanja online modern</p>
+                    </div>
+                </div>
+                <div class="group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-500">
+                    <div class="aspect-video overflow-hidden">
+                        <img src="https://placehold.co/600x400" alt="Website portofolio kreatif untuk desainer dengan visual berani dan elemen interaktif" class="w-full h-full object-cover image-hover" />
+                    </div>
+                    <div class="p-6 bg-white">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Portofolio Desain</h3>
+                        <p class="text-gray-600">Showcase untuk profesional kreatif</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <button class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-md transition-colors">
+                    Lihat Portofolio Lengkap
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Apa Kata Klien Kami</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                    Jangan hanya percaya kata kami - dengarkan dari klien yang puas.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="border-0 shadow-md bg-gray-50 rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4 text-blue-600 font-semibold">
+                            SA
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Sarah Anderson</h4>
+                            <p class="text-sm text-gray-500">CEO, TechInnovate</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "LuxeDesign mengubah kehadiran online kami. Perhatian mereka terhadap detail dan pendekatan kreatif menghasilkan website yang benar-benar mewakili brand kami."
+                    </p>
+                </div>
+                <div class="border-0 shadow-md bg-gray-50 rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4 text-purple-600 font-semibold">
+                            MJ
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Michael Johnson</h4>
+                            <p class="text-sm text-gray-500">Marketing Director</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "Tim LuxeDesign memberikan hasil melebihi ekspektasi kami. Website ini tidak hanya cantik tapi juga meningkatkan konversi secara signifikan."
+                    </p>
+                </div>
+                <div class="border-0 shadow-md bg-gray-50 rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 text-green-600 font-semibold">
+                            ER
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Emily Roberts</h4>
+                            <p class="text-sm text-gray-500">Creative Director</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "Bekerja dengan LuxeDesign sangat menyenangkan. Mereka memahami visi kami dan mengeksekusinya dengan sempurna. Website baru kami mendapat banyak pujian."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Siap Mengangkat Kehadiran Digital Anda?</h2>
+            <p class="text-blue-100 mb-10 max-w-2xl mx-auto text-lg">
+                Mari berkolaborasi untuk menciptakan sesuatu yang luar biasa untuk brand Anda.
+            </p>
+            <form class="max-w-md mx-auto bg-white rounded-lg p-1 shadow-xl flex" onsubmit="event.preventDefault(); alert('Terima kasih telah mendaftar!');">
+                <input
+                    type="email"
+                    placeholder="Masukkan email Anda"
+                    required
+                    class="flex-1 border-0 focus:ring-0 px-4 py-3 rounded-l-lg text-gray-900"
+                />
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-r-lg transition-colors">
+                    Mulai
+                </button>
+            </form>
+            <p class="mt-4 text-blue-100 text-sm">
+                Kami menghargai privasi Anda dan tidak akan membagikan informasi Anda.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-2xl font-bold text-gradient mb-4">LuxeDesign</h3>
+                <p class="text-gray-400 mb-6">
+                    Membuat pengalaman digital luar biasa yang mengangkat brand dan menghasilkan hasil.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+                        <img src="https://cdn-icons-png.flaticon.com/24/733/733579.png" alt="Ikon Twitter" />
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+                        <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Ikon Facebook" />
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+                        <img src="https://cdn-icons-png.flaticon.com/24/733/733558.png" alt="Ikon Instagram" />
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+                        <img src="https://cdn-icons-png.flaticon.com/24/733/733561.png" alt="Ikon LinkedIn" />
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Layanan</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Desain Web</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Pengembangan Web</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">E-Commerce</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">UI/UX Design</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Branding</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Perusahaan</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Tentang Kami</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Portofolio</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Karir</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Kontak</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Kontak</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li>Jl. Desain Kreatif 123</li>
+                    <li>Kota Kreatif, CC 10001</li>
+                    <li>halo@luxedesign.com</li>
+                    <li>+62 812-3456-7890</li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 mb-4 md:mb-0">© 2024 LuxeDesign. Semua hak dilindungi.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="text
