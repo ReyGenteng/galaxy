@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboardku</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+    
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #343a40;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            color: var(--text-color);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+        .saldo-container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            text-align: center;
+            max-width: 500px;
+        }
+        .saldo-item {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 15px 0;
+            color: var(--primary-color);
+        }
+        .saldo-container h2 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        .saldo-container button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .saldo-container button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Dashboard <span id="usernameDisplay"></span></h1>
+        <button id="logoutButton" class="logout-btn">Logout</button>
+    </div>
+
+    <div class="saldo-container">
+        <h2>Saldo Sekarang</h2>
+        <div class="saldo-item">
+            Rp <span id="saldoRupiah">0</span>
+        </div>
+        <button onclick="tambahSaldo(100)">Tambah Saldo (Simulasi)</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getDatabase, ref, onValue, get, set } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyAcFRkbZT3PD3BDObS-7T1769uH5Macvd0",
+          authDomain: "reystore-support.firebaseapp.com",
+          databaseURL: "https://reystore-support-default-rtdb.firebaseio.com",
+          projectId: "reystore-support",
+          storageBucket: "reystore-support.firebasestorage.app",
+          messagingSenderId: "446513200960",
+          appId: "1:446513200960:web:cbd40ca4315a8bf47044a5",
+          measurementId: "G-YEBFKLREK5"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const saldoRupiahElement = document.getElementById('saldoRupiah');
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const logoutButton = document.getElementById('logoutButton');
+
+        const loggedInUsername = localStorage.getItem('loggedInUsername');
+
+        if (!loggedInUsername) {
+            window.location.href = 'login.html';
+        } else {
+            usernameDisplay.innerText = loggedInUsername;
+            muatSaldo(loggedInUsername);
+        }
+
+        logoutButton.addEventListener('click', () => {
+            localStorage.removeItem('loggedInUsername');
+            window.location.href = 'login.html';
+        });
+
+        function muatSaldo(username) {
+            const saldoRef = ref(db, "users/" + username);
+            onValue(saldoRef, (snapshot) => {
+                const saldoData = snapshot.val();
+                saldoRupiahElement.innerText = saldoData ? (saldoData.rupiah || 0) : 0;
+            });
+        }
+
+        window.tambahSaldo = function(jumlah) {
+            const username = localStorage.getItem('loggedInUsername');
+            if (username) {
+                const saldoRef = ref(db, "users/" + username);
+                get(saldoRef).then((snapshot) => {
+                    let userData = snapshot.val();
+                    if (!userData) {
+                        userData = { rupiah: 0 };
+                    }
+                    userData.rupiah += jumlah;
+                    set(saldoRef, userData);
+                    alert(`Saldo berhasil ditambah ${jumlah} Rupiah!`);
+                });
+            }
+        };
+    </script>
+</body>
+</html>

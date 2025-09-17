@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+    
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--background-color);
+            margin: 0;
+            color: var(--text-color);
+        }
+        .form-container {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .toggle-link {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        .toggle-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password (PIN)" required>
+            <button type="submit">Login</button>
+        </form>
+        <p class="toggle-link">Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyAcFRkbZT3PD3BDObS-7T1769uH5Macvd0",
+          authDomain: "reystore-support.firebaseapp.com",
+          databaseURL: "https://reystore-support-default-rtdb.firebaseio.com",
+          projectId: "reystore-support",
+          storageBucket: "reystore-support.firebasestorage.app",
+          messagingSenderId: "446513200960",
+          appId: "1:446513200960:web:cbd40ca4315a8bf47044a5",
+          measurementId: "G-YEBFKLREK5"
+        };
+        
+        const adminUsers = {
+            'rey': 'inforobuxnowxyz',
+            'daff': 'inforobuxnowxyz'
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+            
+            // Periksa jika username yang dimasukkan adalah salah satu dari akun admin
+            if (adminUsers[username] && adminUsers[username] === password) {
+                alert("Login admin berhasil!");
+                // Langsung redirect ke halaman admin.html
+                window.location.href = 'admin.html?username=' + username;
+                return;
+            }
+            
+            get(child(ref(db), `users/${username}`)).then((snapshot) => {
+                if (snapshot.exists() && snapshot.val().password === password) {
+                    alert("Login berhasil!");
+                    localStorage.setItem('loggedInUsername', username);
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert("Username atau password salah!");
+                }
+            }).catch((error) => {
+                alert("Gagal login: " + error.message);
+            });
+        });
+    </script>
+</body>
+</html>
