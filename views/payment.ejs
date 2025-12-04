@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRIS Payment - RPay</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="qr-container">
+            <h2 style="color: #1a2980; margin-bottom: 20px;">
+                <i class="fas fa-qrcode"></i> QRIS Payment
+            </h2>
+            
+            <div class="qr-code">
+                <img src="<%= transaction.qr_image %>" alt="QR Code">
+            </div>
+
+            <p><strong>Reff ID:</strong> <%= transaction.reff_id %></p>
+            <p><strong>Nominal:</strong> Rp <%= transaction.nominal.toLocaleString('id-ID') %></p>
+            <p><strong>Status:</strong> 
+                <span class="badge bg-<%= transaction.status === 'success' ? 'success' : transaction.status === 'pending' ? 'pending' : 'expired' %>">
+                    <%= transaction.status %>
+                </span>
+            </p>
+            <p><strong>Batas Waktu:</strong> <%= new Date(transaction.expired_at).toLocaleString('id-ID') %></p>
+
+            <div style="margin-top: 30px;">
+                <p style="color: #666; font-size: 0.9em;">
+                    <i class="fas fa-info-circle"></i> Scan QR code di atas menggunakan aplikasi e-wallet atau bank yang mendukung QRIS.
+                </p>
+                <p style="color: #666; font-size: 0.9em;">
+                    Pembayaran akan otomatis terverifikasi dalam 1-2 menit.
+                </p>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button onclick="window.location.href='/dashboard'" class="btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
