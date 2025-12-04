@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPay - Payment Gateway QRIS</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-qrcode"></i> RPay
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/docs">Docs</a>
+                <a href="/support">Support</a>
+                <% if (user) { %>
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/logout">Logout</a>
+                <% } else { %>
+                    <a href="/auth/login">Login</a>
+                    <a href="/auth/register">Register</a>
+                <% } %>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <h1>Welcome to RPay Payment Gateway</h1>
+            <p>QRIS Payment Solution dengan Fee Terjangkau</p>
+            <p><strong>Fee: Hanya 1.4% + Rp 300</strong></p>
+        </div>
+
+        <div class="feature-card">
+            <h3><i class="fas fa-bolt"></i> Apa itu RPay?</h3>
+            <p>RPay adalah payment gateway QRIS yang memudahkan bisnis Anda menerima pembayaran digital dengan aman dan cepat. Integrasikan sistem pembayaran QRIS ke dalam website atau aplikasi Anda dengan mudah.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3><i class="fas fa-chart-line"></i> Keuntungan Menggunakan RPay</h3>
+            <ul style="padding-left: 20px; margin-top: 10px;">
+                <li>Fee transaksi hanya 1.4% + Rp 300</li>
+                <li>Integrasi mudah dengan API yang sederhana</li>
+                <li>Support semua bank dan e-wallet yang mendukung QRIS</li>
+                <li>Dashboard real-time untuk monitoring transaksi</li>
+                <li>Saldo otomatis bertambah setelah pembayaran sukses</li>
+                <li>Security terjamin dengan API Key verification</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <h3><i class="fas fa-code"></i> Cara Integrasi</h3>
+            <p>1. Daftar akun RPay</p>
+            <p>2. Generate API Key di dashboard</p>
+            <p>3. Tunggu verifikasi API Key oleh admin</p>
+            <p>4. Gunakan endpoint API untuk membuat pembayaran</p>
+            <p>5. Pantau status pembayaran secara real-time</p>
+        </div>
+
+        <% if (!user) { %>
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="/auth/register" class="btn" style="font-size: 1.2rem; padding: 15px 40px;">
+                <i class="fas fa-rocket"></i> Mulai Sekarang
+            </a>
+        </div>
+        <% } %>
+
+        <footer class="footer">
+            <p>&copy; 2024 RPay Payment Gateway. All rights reserved.</p>
+            <p>Support: support@rpay.xyz | WhatsApp: 0895-2503-6410</p>
+        </footer>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
