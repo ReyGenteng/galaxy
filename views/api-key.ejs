@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Keys - RPay</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-qrcode"></i> RPay
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/docs">Docs</a>
+                <a href="/support">Support</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </nav>
+
+        <div class="card">
+            <h2 class="card-title">Manage API Keys</h2>
+            
+            <% if (typeof error !== 'undefined') { %>
+                <div class="alert alert-error">
+                    <%= error %>
+                </div>
+            <% } %>
+
+            <% if (typeof success !== 'undefined') { %>
+                <div class="alert alert-success">
+                    <%= success %>
+                </div>
+            <% } %>
+
+            <p style="margin-bottom: 20px;">
+                API Key digunakan untuk mengakses API RPay. Setiap user hanya dapat memiliki satu API Key.
+                Setelah dibuat, API Key harus diverifikasi oleh admin sebelum dapat digunakan.
+            </p>
+
+            <% if (apiKeys.length > 0) { %>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>API Key</th>
+                            <th>Status</th>
+                            <th>Dibuat Pada</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% apiKeys.forEach(apiKey => { %>
+                        <tr>
+                            <td>
+                                <code><%= apiKey.api_key %></code>
+                            </td>
+                            <td>
+                                <% if (apiKey.verified) { %>
+                                    <span class="badge bg-success">Verified</span>
+                                <% } else { %>
+                                    <span class="badge bg-pending">Pending Verification</span>
+                                <% } %>
+                            </td>
+                            <td><%= new Date(apiKey.created_at).toLocaleString('id-ID') %></td>
+                            <td>
+                                <button class="btn btn-sm" onclick="copyApiKey('<%= apiKey.api_key %>')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p style="text-align: center; color: #666; padding: 20px;">
+                    Anda belum memiliki API Key. Generate sekarang!
+                </p>
+            <% } %>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <form action="/dashboard/api-keys/generate" method="POST">
+                    <button type="submit" class="btn">
+                        <i class="fas fa-key"></i> Generate New API Key
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 30px;">
+            <h3 class="card-title">Cara Menggunakan API Key</h3>
+            <p>1. Copy API Key Anda</p>
+            <p>2. Tambahkan parameter <code>apikey</code> di setiap request API</p>
+            <p>3. Contoh: <code>https://rpay.xyz/h2h/deposit/create?apikey=YOUR_API_KEY&reff_id=123&nominal=10000</code></p>
+            <p>4. Tunggu verifikasi dari admin sebelum menggunakan</p>
+        </div>
+    </div>
+
+    <script>
+        function copyApiKey(apiKey) {
+            navigator.clipboard.writeText(apiKey).then(() => {
+                alert('API Key copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
