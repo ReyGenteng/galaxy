@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - RPay</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-qrcode"></i> RPay Docs
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/support">Support</a>
+                <% if (user) { %>
+                    <a href="/logout">Logout</a>
+                <% } else { %>
+                    <a href="/auth/login">Login</a>
+                <% } %>
+            </div>
+        </nav>
+
+        <div class="card">
+            <h2 class="card-title">RPay API Documentation</h2>
+            <p>Integrasikan payment gateway QRIS ke dalam aplikasi Anda dengan mudah.</p>
+
+            <div class="endpoint">
+                <h3>1. Create Payment</h3>
+                <pre><code>GET /h2h/deposit/create?apikey=YOUR_API_KEY&reff_id=UNIQUE_ID&nominal=AMOUNT</code></pre>
+                
+                <h4>Parameters:</h4>
+                <ul>
+                    <li><strong>apikey</strong> (required) - Your API Key</li>
+                    <li><strong>reff_id</strong> (required) - Unique transaction ID (max 50 chars)</li>
+                    <li><strong>nominal</strong> (required) - Amount in Rupiah (min 5000)</li>
+                </ul>
+                
+                <h4>Response:</h4>
+                <pre><code>{
+  "status": true,
+  "data": {
+    "id": "txn_001",
+    "reff_id": "your_ref",
+    "nominal": 5000,
+    "qr_string": "0002010102...",
+    "qr_image": "https://...",
+    "status": "pending",
+    "created_at": "2024-01-01 12:00:00",
+    "expired_at": "2024-01-01 13:00:00"
+  },
+  "code": 200
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>2. Check Payment Status</h3>
+                <pre><code>GET /h2h/deposit/status?apikey=YOUR_API_KEY&reff_id=TRANSACTION_REF</code></pre>
+                
+                <h4>Response:</h4>
+                <pre><code>{
+  "status": true,
+  "data": {
+    "reff_id": "your_ref",
+    "status": "pending/success/expired",
+    "nominal": 5000,
+    "qr_image": "https://...",
+    "created_at": "2024-01-01 12:00:00",
+    "expired_at": "2024-01-01 13:00:00"
+  },
+  "code": 200
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>3. Lightweight Polling</h3>
+                <pre><code>GET /h2h/deposit/poll?apikey=YOUR_API_KEY&reff_id=TRANSACTION_REF</code></pre>
+                
+                <h4>Response:</h4>
+                <pre><code>{
+  "status": "pending/success/expired",
+  "message": "Status message"
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 30px;">
+            <h3 class="card-title">Status Codes</h3>
+            <ul>
+                <li><strong>pending</strong>: Waiting for payment</li>
+                <li><strong>success</strong>: Payment completed</li>
+                <li><strong>expired</strong>: QR Code expired</li>
+                <li><strong>failed</strong>: Payment failed</li>
+            </ul>
+        </div>
+
+        <div class="card" style="margin-top: 30px;">
+            <h3 class="card-title">Contoh Integrasi (PHP)</h3>
+            <pre><code>&lt;?php
+$apiKey = "YOUR_API_KEY";
+$reffId = "ORDER_" . time();
+$nominal = 10000;
+
+$url = "https://rpay.xyz/h2h/deposit/create?apikey=$apiKey&reff_id=$reffId&nominal=$nominal";
+
+$response = file_get_contents($url);
+$data = json_decode($response, true);
+
+if ($data['status']) {
+    $qrImage = $data['data']['qr_image'];
+    echo "&lt;img src='$qrImage'&gt;";
+} else {
+    echo "Error: " . $data['message'];
+}
+?&gt;</code></pre>
+        </div>
+    </div>
+</body>
+</html>
