@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - RPay</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-qrcode"></i> RPay Dashboard
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/docs">Docs</a>
+                <a href="/support">Support</a>
+                <a href="/dashboard/api-keys">API Keys</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </nav>
+
+        <% if (typeof error !== 'undefined') { %>
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <% if (typeof success !== 'undefined') { %>
+            <div class="alert alert-success">
+                <%= success %>
+            </div>
+        <% } %>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3 class="card-title">Welcome, <%= user.username %>!</h3>
+                <div class="balance">
+                    <%= saldo.toLocaleString('id-ID') %>
+                </div>
+                <p style="text-align: center; color: #666;">Saldo Anda</p>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Quick Actions</h3>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="/dashboard/api-keys" class="btn">
+                        <i class="fas fa-key"></i> Manage API Keys
+                    </a>
+                    <button onclick="document.getElementById('withdrawModal').style.display='block'" class="btn btn-success">
+                        <i class="fas fa-money-bill-wave"></i> Pencairan Dana
+                    </button>
+                    <a href="/docs" class="btn btn-warning">
+                        <i class="fas fa-book"></i> API Documentation
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 30px;">
+            <h3 class="card-title">Riwayat Transaksi Terakhir</h3>
+            <% if (transactions.length > 0) { %>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Reff ID</th>
+                            <th>Nominal</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% transactions.forEach(transaction => { %>
+                        <tr>
+                            <td><%= transaction.reff_id %></td>
+                            <td>Rp <%= transaction.nominal.toLocaleString('id-ID') %></td>
+                            <td>
+                                <span class="badge bg-<%= transaction.status === 'success' ? 'success' : transaction.status === 'pending' ? 'pending' : 'expired' %>"
+                                      data-status="<%= transaction.status %>"
+                                      data-reff-id="<%= transaction.reff_id %>">
+                                    <%= transaction.status %>
+                                </span>
+                            </td>
+                            <td><%= new Date(transaction.created_at).toLocaleString('id-ID') %></td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p style="text-align: center; color: #666; padding: 20px;">
+                    Belum ada transaksi
+                </p>
+            <% } %>
+        </div>
+
+        <div class="card" style="margin-top: 30px;">
+            <h3 class="card-title">Riwayat Pencairan</h3>
+            <% if (withdrawals.length > 0) { %>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nominal</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% withdrawals.forEach(withdrawal => { %>
+                        <tr>
+                            <td>#<%= withdrawal.id %></td>
+                            <td>Rp <%= withdrawal.nominal.toLocaleString('id-ID') %></td>
+                            <td>
+                                <span class="badge bg-<%= withdrawal.status === 'success' ? 'success' : 'pending' %>">
+                                    <%= withdrawal.status %>
+                                </span>
+                            </td>
+                            <td><%= new Date(withdrawal.created_at).toLocaleString('id-ID') %></td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p style="text-align: center; color: #666; padding: 20px;">
+                    Belum ada pencairan
+                </p>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div id="withdrawModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
+        <div style="background: white; margin: 10% auto; padding: 30px; border-radius: 15px; width: 90%; max-width: 500px;">
+            <h3 style="color: #1a2980; margin-bottom: 20px;">
+                <i class="fas fa-money-bill-wave"></i> Pencairan Dana
+            </h3>
+            <form action="/dashboard/withdraw" method="POST">
+                <div class="form-group">
+                    <label for="nominal">Nominal (Rp)</label>
+                    <input type="number" id="nominal" name="nominal" class="form-control" 
+                           min="10000" max="<%= saldo %>" required>
+                    <small style="color: #666;">Saldo tersedia: Rp <%= saldo.toLocaleString('id-ID') %></small>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-success" style="flex: 1;">
+                        <i class="fas fa-check"></i> Ajukan Pencairan
+                    </button>
+                    <button type="button" class="btn btn-danger" style="flex: 1;" 
+                            onclick="document.getElementById('withdrawModal').style.display='none'">
+                        <i class="fas fa-times"></i> Batal
+                    </button>
+                </div>
+            </form>
+            <p style="margin-top: 20px; color: #666; font-size: 0.9em;">
+                <i class="fas fa-info-circle"></i> Pencairan akan diproses via WhatsApp ke admin
+            </p>
+        </div>
+    </div>
+
+    <input type="hidden" id="apiKey" value="<%= user.api_key || '' %>">
+    <script src="/js/script.js"></script>
+</body>
+</html>
