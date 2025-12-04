@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - RPay</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-qrcode"></i> RPay Admin
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </nav>
+
+        <% if (typeof error !== 'undefined') { %>
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <% if (typeof success !== 'undefined') { %>
+            <div class="alert alert-success">
+                <%= success %>
+            </div>
+        <% } %>
+
+        <div class="card">
+            <h2 class="card-title">User Management</h2>
+            
+            <% if (users.length > 0) { %>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Saldo</th>
+                            <th>API Key</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.id %></td>
+                            <td><%= user.username %></td>
+                            <td><%= user.email %></td>
+                            <td>Rp <%= user.saldo.toLocaleString('id-ID') %></td>
+                            <td>
+                                <% if (user.api_key) { %>
+                                    <code><%= user.api_key.substring(0, 10) %>...</code>
+                                    <% if (user.verified) { %>
+                                        <span class="badge bg-success">Verified</span>
+                                    <% } else { %>
+                                        <span class="badge bg-pending">Unverified</span>
+                                    <% } %>
+                                <% } else { %>
+                                    <span style="color: #666;">No API Key</span>
+                                <% } %>
+                            </td>
+                            <td>
+                                <span class="badge bg-success">Active</span>
+                            </td>
+                            <td class="admin-actions">
+                                <% if (user.api_key && !user.verified) { %>
+                                    <form action="/admin/verify-api-key/<%= user.id %>" method="post" style="display:inline;">
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <i class="fas fa-check"></i> Verify
+                                        </button>
+                                    </form>
+                                <% } %>
+                                
+                                <!-- Tombol Hapus User -->
+                                <form id="delete-form-<%= user.id %>" action="/admin/delete-user/<%= user.id %>" method="post" style="display:inline;">
+                                    <button type="button" class="btn btn-sm btn-danger" 
+                                            onclick="confirmDelete(<%= user.id %>, '<%= user.username %>')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p style="text-align: center; color: #666; padding: 20px;">
+                    No users found
+                </p>
+            <% } %>
+        </div>
+    </div>
+
+    <script>
+    function confirmDelete(userId, username) {
+        if (confirm(`Are you sure you want to delete user "${username}"? This action cannot be undone!`)) {
+            document.getElementById(`delete-form-${userId}`).submit();
+        }
+    }
+    </script>
+</body>
+</html>
