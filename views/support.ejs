@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - RPay</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-qrcode"></i> RPay
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/docs">Docs</a>
+                <% if (user) { %>
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/logout">Logout</a>
+                <% } else { %>
+                    <a href="/auth/login">Login</a>
+                    <a href="/auth/register">Register</a>
+                <% } %>
+            </div>
+        </nav>
+
+        <div class="card">
+            <h2 class="card-title">Support Center</h2>
+            <p>Jika Anda mengalami masalah atau memiliki pertanyaan, jangan ragu untuk menghubungi kami.</p>
+
+            <div class="feature-card" style="margin: 20px 0;">
+                <h3><i class="fas fa-envelope"></i> Email Support</h3>
+                <p>support@rpay.xyz</p>
+            </div>
+
+            <div class="feature-card" style="margin: 20px 0;">
+                <h3><i class="fab fa-whatsapp"></i> WhatsApp Support</h3>
+                <p>+62 895-2503-6410</p>
+                <a href="https://wa.me/6289525036410" class="btn btn-success" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Chat via WhatsApp
+                </a>
+            </div>
+
+            <div class="feature-card" style="margin: 20px 0;">
+                <h3><i class="fas fa-question-circle"></i> FAQ</h3>
+                <p><strong>Q: Berapa lama verifikasi API Key?</strong></p>
+                <p>A: Biasanya dalam 1x24 jam.</p>
+                <p><strong>Q: Apakah ada biaya bulanan?</strong></p>
+                <p>A: Tidak, hanya biaya transaksi 1.4% + Rp 300.</p>
+                <p><strong>Q: Bagaimana cara pencairan saldo?</strong></p>
+                <p>A: Bisa dilakukan melalui dashboard, akan dihubungi admin via WhatsApp.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
